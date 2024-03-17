@@ -1,0 +1,39 @@
+# Template file for 'librewolf-bin'
+pkgname=librewolf-bin
+version=123.0.1
+_version=${version}-1
+revision=1
+archs="x86_64 aarch64"
+create_wrksrc=true
+short_desc="Community maintained fork of Firefox, focused on privacy, security and freedom"
+maintainer=" Dax <contact@antoniodavide.dev>"
+license="MPL-2.0, GPL-2.0-or-later, LGPL-2.1-or-later"
+homepage="https://librewolf.net"
+
+_baseurl="https://gitlab.com/api/v4/projects/44042130/packages/generic/librewolf/${_version}"
+
+case "$XBPS_TARGET_MACHINE" in
+    x86_64)  distfiles="${_baseurl}/librewolf-${_version}-linux-x86_64-package.tar.bz2" ;;
+    aarch64) distfiles="${_baseurl}/librewolf-${_version}-linux-aarch64-package.tar.bz2" ;;
+esac
+
+checksum=23f36e9b2b3d9d0e4afcd3c261b16d1dd6e74a5cb87237bf054eaea9331449e7
+
+do_install() {
+    # Replace duplicate binary with wrapper
+    # https://bugzilla.mozilla.org/show_bug.cgi?id=658850
+    ln -srfv librewolf/librewolf librewolf/librewolf-bin
+
+    vcopy * /usr/lib
+
+    for i in 16 32 48 64 128; do
+        vinstall "librewolf/browser/chrome/icons/default/default${i}.png" 644 "/usr/share/icons/hicolor/${i}x${i}/apps" "librewolf.png"
+    done
+
+    vinstall "$FILESDIR/default192x192.png" 644 "/usr/share/icons/hicolor/192x192/apps" "librewolf.png"
+
+    vbin "$FILESDIR/librewolf"
+    vinstall "$FILESDIR/librewolf.desktop" 644 /usr/share/applications
+}
+
+# vi: ft=sh
