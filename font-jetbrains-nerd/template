@@ -11,9 +11,9 @@ distfiles="https://github.com/ryanoasis/nerd-fonts/releases/download/v${version}
 checksum=92225abcacf2fe500c59c5f16962528909a0c5caec8e2aa14a6546ff268a1db9
 
 do_install() {
-    vlicense OFL.txt
-    vmkdir usr/share/fonts/jetbrainsnerd
-    vcopy "*.ttf" usr/share/fonts/jetbrainsnerd
+	vlicense OFL.txt
+	vmkdir usr/share/fonts/jetbrainsnerd
+	vcopy "*.ttf" usr/share/fonts/jetbrainsnerd
 }
 
 # vi: ft=sh
