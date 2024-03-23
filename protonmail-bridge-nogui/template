@@ -1,0 +1,24 @@
+# Template file for 'protonmail-bridge-nogui'
+pkgname=protonmail-bridge-nogui
+version=3.10.0
+revision=1
+build_style=gnu-makefile
+make_build_args="build-nogui"
+hostmakedepends="pkg-config"
+makedepends="go libsecret-devel"
+depends="libsecret pass"
+short_desc="ProtonMail Bridge for use with E-mail software"
+maintainer="Dax <contact@antoniodavide.dev>"
+license="GPL-3.0-or-later"
+homepage="https://proton.me/mail/bridge"
+changelog="https://github.com/ProtonMail/proton-bridge/blob/master/Changelog.md"
+distfiles="https://github.com/ProtonMail/proton-bridge/archive/refs/tags/v${version}.tar.gz"
+checksum=fe2b048eb3a442a571e469ed376697a7c038189a29f824ffefc00d6fc36ba766
+restricted=yes
+nopie=yes
+
+do_install() {
+	vbin bridge protonmail-bridge
+}
+
+# vi: ft=sh
