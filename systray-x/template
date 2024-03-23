@@ -28,7 +28,7 @@ do_install() {
 	vbin SysTray-X
 	vinstall systray-x@Ximi1970.xpi 644 /usr/lib/thunderbird/extensions
 
-	sed -i 's/\/path\/to\/native-messaging\/app/\/usr\/bin/g' app/SysTray_X.json
+	vsed -i 's/\/path\/to\/native-messaging\/app/\/usr\/bin/g' app/SysTray_X.json
 	vinstall app/SysTray_X.json 644 /usr/lib/mozilla/native-messaging-hosts
 
 	vlicense LICENSE
