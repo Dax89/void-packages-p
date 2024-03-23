@@ -1,0 +1,30 @@
+# Template file for 'iwd-rofimenu-git'
+pkgname=iwd-rofimenu-git
+version=1.0
+revision=1
+build_style=gnu-makefile
+hostmakedepends="git"
+depends="python3 python3-pexpect iwd rofi util-linux"
+short_desc="Minimalistic WiFi network chooser for iwd"
+maintainer="Dax <contact@antoniodavide.dev>"
+license="GPL-3.0-or-later"
+homepage="https://github.com/defname/rofi-iwd-wifi-menu"
+
+# No release is set
+do_fetch() {
+	rm -rf ${wrksrc}
+	git clone https://github.com/defname/rofi-iwd-wifi-menu.git ${wrksrc}
+	cd ${wrksrc}
+}
+
+pre_install() {
+	vmkdir usr/bin
+}
+
+post_install() {
+	# Replace broken symbolic link
+	unlink ${DESTDIR}/usr/bin/iwdrofimenu
+	ln -sfv /usr/share/iwdrofimenu/iwdrofimenu.py ${DESTDIR}/usr/bin/iwdrofimenu
+}
+
+# vi: ft=sh
