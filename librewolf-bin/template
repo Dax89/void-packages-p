@@ -1,6 +1,6 @@
 # Template file for 'librewolf-bin'
 pkgname=librewolf-bin
-version=123.0.1
+version=124.0.1
 revision=1
 _version=${version}-1
 archs="x86_64 aarch64"
@@ -13,11 +13,17 @@ homepage="https://librewolf.net"
 _baseurl="https://gitlab.com/api/v4/projects/44042130/packages/generic/librewolf/${_version}"
 
 case "$XBPS_TARGET_MACHINE" in
-	x86_64)  distfiles="${_baseurl}/librewolf-${_version}-linux-x86_64-package.tar.bz2" ;;
-	aarch64) distfiles="${_baseurl}/librewolf-${_version}-linux-aarch64-package.tar.bz2" ;;
+	x86_64)
+		distfiles="${_baseurl}/librewolf-${_version}-linux-x86_64-package.tar.bz2"
+		checksum=bc21aa482d9e6123ea84d4a430e606bc2794a0a31c5ae2099362a4c8e6cff0f9
+		;;
+
+	aarch64)
+		distfiles="${_baseurl}/librewolf-${_version}-linux-arm64-package.tar.bz2"
+		checksum=c478c98a6263c3a60e66952b827260a58e12f45eb9fbc81e8302e7b78cc59cda
+		;;
 esac
 
-checksum=23f36e9b2b3d9d0e4afcd3c261b16d1dd6e74a5cb87237bf054eaea9331449e7
 
 do_install() {
 	# Replace duplicate binary with wrapper
