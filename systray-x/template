@@ -1,6 +1,6 @@
 # Template file for 'systray-x'
 pkgname=systray-x
-version=0.9.8
+version=0.9.10
 revision=1
 build_helper=qmake
 hostmakedepends="which git zip qt5-host-tools qt5-qmake"
@@ -13,25 +13,25 @@ homepage="https://github.com/Ximi1970/systray-x"
 
 # Custom build system doesn't work with release tarballs
 do_fetch() {
-	rm -rf ${wrksrc}
-	git clone https://github.com/Ximi1970/systray-x.git ${wrksrc}
-	cd ${wrksrc}
-	git checkout ${version}
+    rm -rf ${wrksrc}
+    git clone https://github.com/Ximi1970/systray-x.git ${wrksrc}
+    cd ${wrksrc}
+    git checkout ${version}
 }
 
 do_build() {
-	make clean
-	make OPTIONS="DEFINES+=NO_KDE_INTEGRATION"
+    make clean
+    make OPTIONS="DEFINES+=NO_KDE_INTEGRATION"
 }
 
 do_install() {
-	vbin SysTray-X
-	vinstall systray-x@Ximi1970.xpi 644 /usr/lib/thunderbird/extensions
+    vbin SysTray-X
+    vinstall systray-x@Ximi1970.xpi 644 /usr/lib/thunderbird/extensions
 
-	vsed -i 's/\/path\/to\/native-messaging\/app/\/usr\/bin/g' app/SysTray_X.json
-	vinstall app/SysTray_X.json 644 /usr/lib/mozilla/native-messaging-hosts
+    vsed -i 's/\/path\/to\/native-messaging\/app/\/usr\/bin/g' app/SysTray_X.json
+    vinstall app/SysTray_X.json 644 /usr/lib/mozilla/native-messaging-hosts
 
-	vlicense LICENSE
+    vlicense LICENSE
 
 }
 
