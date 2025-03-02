@@ -1,0 +1,46 @@
+# Template file for 'brave-browser-bin'
+_pkgname=brave-browser
+pkgname=${_pkgname}-bin
+version=1.76.71
+revision=1
+archs="x86_64 aarch64"
+create_wrksrc=true
+short_desc="Browser that rethinks the web"
+maintainer="Dax <contact@antoniodavide.dev>"
+license="MPL-2.0"
+homepage="https://brave.com"
+
+_baseurl="https://github.com/brave/brave-browser/releases/download/v${version}"
+
+case "$XBPS_TARGET_MACHINE" in
+x86_64)
+	distfiles="${_baseurl}/brave-browser-${version}-linux-amd64.zip"
+	checksum=91d99828b60413beba77c1c860aaacc831880218b07a85317ac33175a3464d7b
+	;;
+
+aarch64)
+	distfiles="${_baseurl}/brave-browser-${version}-linux-arm64.zip"
+	checksum=c478c98a6263c3a60e66952b827260a58e12f45eb9fbc81e8302e7b78cc59cda
+	;;
+esac
+
+do_install() {
+	vmkdir "/usr/lib/${_pkgname}"
+	vcopy * "/usr/lib/${_pkgname}"
+
+	for i in 16 24 32 48 64 128 256; do
+		vinstall "product_logo_${i}.png" 644 "/usr/share/icons/hicolor/${i}x${i}/apps" "brave-browser.png"
+	done
+
+	vlicense "LICENSE"
+	vinstall "product_logo_256.png" 644 "/usr/share/icons/hicolor/256x256/apps" "brave-browser.png"
+	vinstall "${FILESDIR}/brave-browser.desktop" 644 /usr/share/applications
+	vbin "${FILESDIR}/brave-browser"
+}
+
+post_install() {
+	# Allow firejail users to get the suid sandbox working
+	chmod 4755 "${DESTDIR}/usr/lib/${_pkgname}/chrome-sandbox"
+}
+
+# vi: ft=sh
