@@ -1,6 +1,6 @@
 # Template file for 'font-jetbrains-nerd'
 pkgname=font-jetbrains-nerd
-version=3.2.1
+version=3.4.0
 revision=1
 depends="font-util"
 short_desc="Patched font JetBrains Mono from nerd fonts library"

@@ -1,7 +1,7 @@
 # Template file for 'brave-browser-bin'
 _pkgname=brave-browser
 pkgname=${_pkgname}-bin
-version=1.80.115
+version=1.81.131
 revision=1
 archs="x86_64 aarch64"
 create_wrksrc=true
@@ -15,7 +15,7 @@ _baseurl="https://github.com/brave/brave-browser/releases/download/v${version}"
 case "$XBPS_TARGET_MACHINE" in
 x86_64)
 	distfiles="${_baseurl}/brave-browser-${version}-linux-amd64.zip"
-	checksum=6d66cf5d2b4eda48d12e20b3f992e71fef11a9e8b6da86874f1405b49eb0e446
+	checksum=3a73bd94be8573d5a327a764634ae087984d2530679081cb25a0327d4b6aba91
 	;;
 
 aarch64)
